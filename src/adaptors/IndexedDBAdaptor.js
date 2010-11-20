@@ -101,6 +101,15 @@ IndexedDBAdaptor.prototype = {
 		};
 	},
 	nuke:function(callback) {
-		// pending
+		var that = this;
+		var txn = this.db.transaction([this.name], this.READ_WRITE, this.timeout);
+		var clearRequest = txn.objectStore(this.name).clear();
+
+		clearRequest.onsuccess = function (evt) {
+			that.terseToVerboseCallback(callback)(evt.result);
+		};
+		clearRequest.onerror = function (evt) {
+			that.terseToVerboseCallback(callback)(null);
+		};
 	}
 };
