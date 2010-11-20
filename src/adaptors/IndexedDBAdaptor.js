@@ -89,7 +89,16 @@ IndexedDBAdaptor.prototype = {
 		// pending
 	},
 	remove:function(keyOrObj, callback) {
-		// pending
+		var that = this;
+		var txn = this.db.transaction([this.name], this.READ_WRITE, this.timeout);
+		var removeRequest = txn.objectStore(this.name).remove(keyOrObj);
+
+		removeRequest.onsuccess = function (evt) {
+			that.terseToVerboseCallback(callback)(evt.result);
+		};
+		removeRequest.onerror = function (evt) {
+			that.terseToVerboseCallback(callback)(null);
+		};
 	},
 	nuke:function(callback) {
 		// pending
