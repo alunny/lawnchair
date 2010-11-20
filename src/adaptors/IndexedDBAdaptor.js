@@ -82,7 +82,22 @@ IndexedDBAdaptor.prototype = {
 		};
 	},
 	all:function(callback) {
-		// pending
+		var that = this;
+		var records = [];
+		var txn = this.db.transaction([this.name], this.READ_ONLY, this.timeout);
+		var cursorRequest = txn.objectStore(this.name).openCursor();
+
+		cursorRequest.onsuccess = function (evt) {
+			var cursor = evt.result;
+
+			if (!cursor) {
+				if (callback) that.terseToVerboseCallback(callback)(records);
+				return;
+			}
+
+			records.push(cursor.value);
+			cursor.continue();
+		}
 	},
 	remove:function(keyOrObj, callback) {
 		var that = this;
