@@ -24,7 +24,6 @@ IndexedDBAdaptor.prototype = {
 		this.display	= merge('shed',      opts.display 	);
 		this.version	= merge('1',		 opts.version	);
 		this.db			= merge(null,        opts.db		);
-		this.perPage    = merge(10,          opts.perPage   );
 		this.timeout 	= merge(3000,		 opts.timeout	);
 
 		// indexedDB constants
@@ -83,9 +82,6 @@ IndexedDBAdaptor.prototype = {
 		};
 	},
 	all:function(callback) {
-		// pending
-	},
-	paged:function(page, callback) {
 		// pending
 	},
 	remove:function(keyOrObj, callback) {
