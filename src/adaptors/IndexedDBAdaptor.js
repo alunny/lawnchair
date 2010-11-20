@@ -62,10 +62,10 @@ IndexedDBAdaptor.prototype = {
 		var putRequest = txn.objectStore(this.name).put(obj, obj[this.index]);
 
 		putRequest.onsuccess = function (evt) {
-			that.terseToVerboseCallback(callback)(obj);
+			if (callback) that.terseToVerboseCallback(callback)(obj);
 		};
 		putRequest.onerror = function (evt) {
-			that.terseToVerboseCallback(callback)(null);
+			if (callback) that.terseToVerboseCallback(callback)(null);
 		};
 	},
 	get:function(key, callback) {
@@ -75,10 +75,10 @@ IndexedDBAdaptor.prototype = {
 		var getRequest = txn.objectStore(this.name).get(key);
 
 		getRequest.onsuccess = function (evt) {
-			that.terseToVerboseCallback(callback)(evt.result);
+			if (callback) that.terseToVerboseCallback(callback)(evt.result);
 		};
 		getRequest.onerror = function (evt) {
-			that.terseToVerboseCallback(callback)(null);
+			if (callback) that.terseToVerboseCallback(callback)(null);
 		};
 	},
 	all:function(callback) {
@@ -90,10 +90,10 @@ IndexedDBAdaptor.prototype = {
 		var removeRequest = txn.objectStore(this.name).remove(keyOrObj);
 
 		removeRequest.onsuccess = function (evt) {
-			that.terseToVerboseCallback(callback)(evt.result);
+			if (callback) that.terseToVerboseCallback(callback)(evt.result);
 		};
 		removeRequest.onerror = function (evt) {
-			that.terseToVerboseCallback(callback)(null);
+			if (callback) that.terseToVerboseCallback(callback)(null);
 		};
 	},
 	nuke:function(callback) {
@@ -102,10 +102,10 @@ IndexedDBAdaptor.prototype = {
 		var clearRequest = txn.objectStore(this.name).clear();
 
 		clearRequest.onsuccess = function (evt) {
-			that.terseToVerboseCallback(callback)(evt.result);
+			if (callback) that.terseToVerboseCallback(callback)(evt.result);
 		};
 		clearRequest.onerror = function (evt) {
-			that.terseToVerboseCallback(callback)(null);
+			if (callback) that.terseToVerboseCallback(callback)(null);
 		};
 	}
 };
