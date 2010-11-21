@@ -60,7 +60,7 @@
 			var that = this;
 
 			var txn = this.db.transaction([this.name], this.READ_WRITE, this.timeout);
-			var putRequest = txn.objectStore(this.name).put(obj, obj[this.index]);
+			var putRequest = txn.objectStore(this.name).put(obj);
 
 			putRequest.onsuccess = function (evt) {
 				if (callback) that.terseToVerboseCallback(callback)(obj);
